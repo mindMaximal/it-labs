@@ -1,3 +1,9 @@
-/**/**/bin/
-/**/**/obj/
+/**/**/bin
+/**/**/obj
 .gitignore
+
+Lab1/Lab1/obj
+Lab1/Lab1/bin
+
+Lab2/Lab2/obj
+Lab2/Lab2/bin
