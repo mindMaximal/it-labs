@@ -17,16 +17,18 @@ namespace Lab1
             
             Matrix matrixB = new Matrix(matrixB_);
 
-            int[,] matrixRes = {
+            int[,] matrixRes_ = {
                 {12, 2, 3, 4},
                 {5, 8, 7, 8},
                 {9, 10, 13, 12},
                 {13, 14, 15, 18}
             };
 
-            var matrixTmp = matrixB + 2;
+            Matrix matrixRes = new Matrix(matrixRes_);
 
-            CollectionAssert.AreEqual(matrixTmp, matrixRes);
+            Matrix matrixTmp = matrixB + 2;
+
+            Assert.AreEqual(matrixTmp, matrixRes);
         }
 
         [Test]
@@ -48,16 +50,18 @@ namespace Lab1
             Matrix matrixA = new Matrix(matrixA_);
             Matrix matrixC = new Matrix(matrixC_);
 
-            int[,] matrixRes = {
+            int[,] matrixRes_ = {
                 {3, 6, 9, 12},
                 {15, 18, 21, 24},
                 {27, 30, 33, 36},
                 {39, 42, 45, 48},
             };
 
-            var matrixTmp = matrixA + matrixC;
+            Matrix matrixRes = new Matrix(matrixRes_);
 
-            CollectionAssert.AreEqual(matrixTmp, matrixRes);
+            Matrix matrixTmp = matrixA + matrixC;
+
+            Assert.AreEqual(matrixTmp, matrixRes);
         }
 
         [Test]
@@ -79,29 +83,31 @@ namespace Lab1
             Matrix matrixA = new Matrix(matrixA_);
             Matrix matrixC = new Matrix(matrixC_);
 
-            int[,] matrixRes = {
+            int[,] matrixRes_ = {
                 {0, 0, 0, 0},
                 {0, 0, 0, 0},
                 {0, 0, 0, 0},
                 {0, 0, 0, 0},
             };
 
-            var matrixTmp = matrixA - matrixC;
+            Matrix matrixRes = new Matrix(matrixRes_);
 
-            CollectionAssert.AreEqual(matrixTmp, matrixRes);
+            Matrix matrixTmp = matrixA - matrixC;
+
+            Assert.AreEqual(matrixTmp, matrixRes);
         }
 
         [Test]
         public void TestTransponseMatrix()
         {
-            int[,] matrixA_ = new int[4, 4] {
+            int[,] matrixA_ = {
                 {1, 2, 3, 4},
                 {5, 6, 7, 8},
                 {9, 10, 11, 12},
                 {13, 14, 15, 16}
             };
 
-            int[,] matrixRes = {
+            int[,] matrixRes_ = {
                 {1, 5, 9, 13},
                 {2, 6, 10, 14},
                 {3, 7, 11, 15},
@@ -110,7 +116,35 @@ namespace Lab1
 
             Matrix matrixA = new Matrix(matrixA_);
 
-            CollectionAssert.AreEqual(matrixA.getTransposeMatrix(), matrixRes); 
+            Matrix matrixTmp = matrixA.GetTransposeMatrix();
+
+            Matrix matrixRes = new Matrix(matrixRes_);
+
+            Assert.AreEqual(matrixTmp, matrixRes); 
+        }
+
+        [Test]
+        public void TestMatrixSize()
+        {
+            int[,] matrixB_ = new int[4, 4] {
+                {10, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16}
+            };
+
+            Matrix matrixB = new Matrix(matrixB_);
+
+            int[,] matrixRes_ = {
+                {12, 2, 3 },
+                {5, 8, 7 },
+                {9, 10, 13 }
+            };
+
+            Matrix matrixRes = new Matrix(matrixRes_);
+
+
+            Assert.AreEqual(matrixB, matrixRes);
         }
     }
 }

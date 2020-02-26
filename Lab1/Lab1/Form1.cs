@@ -62,10 +62,6 @@ namespace Lab1
         private int[,] matrix;
         //Размер матрицы
         private int n;
-        
-        //Число четных и нечетных элементов матрицы
-        public int evenNumbers;
-        public int oddNumbers;
 
         static Random rand = new Random();
         delegate bool IsEqual(int x);
@@ -74,10 +70,7 @@ namespace Lab1
         public Matrix(int[,] matrix_)
         {
             this.matrix = matrix_;
-
-            //Посчитаем четные и нечетные элементы нашей матрицы, кроме нолика. Нолик ни четное, ни нечетное!
-            evenNumbers = GetNumberCount(this, x => x % 2 == 0 && x != 0);
-            oddNumbers = GetNumberCount(this, x => x % 2 == 1);
+            this.n = matrix.GetLength(0);
         }
 
         //Формируем матрицу на основе заданного размера
@@ -93,15 +86,12 @@ namespace Lab1
                     matrix[i, j] = rand.Next() % 10;
                 }
             }
-
-            //Посчитаем четные и нечетные элементы нашей матрицы, кроме нолика. Нолик ни четное, ни нечетное!
-            evenNumbers = GetNumberCount(this, x => x % 2 == 0 && x != 0);
-            oddNumbers = GetNumberCount(this, x => x % 2 == 1);
         }
 
         public Matrix(string text)
         {
             this.matrix = TextToMatrix(text);
+            this.n = matrix.GetLength(0);
         }
 
         public object Clone()
@@ -115,6 +105,22 @@ namespace Lab1
             get 
             {
                 return n;
+            }
+        }
+
+        //Число четных и нечетных элементов матрицы
+        public int EvenNumbers {
+            get
+            {
+                //Посчитаем четные элементы нашей матрицы, кроме нолика.
+                return GetNumberCount(this, x => x % 2 == 0 && x != 0);
+            }
+        }
+        public int OddNumbers {
+            get
+            {
+                //Посчитаем нечетные элементы нашей матрицы, кроме нолика. Нолик ни четное, ни нечетное!
+                return GetNumberCount(this, x => x % 2 == 1); ;
             }
         }
 
@@ -139,6 +145,9 @@ namespace Lab1
 
             // если преобразование не удалось, то есть если B не матрица, то в B окажется null
             if (B == null)
+                return false;
+
+            if (B.Size != this.Size)
                 return false;
 
             // Если это матрица
@@ -281,11 +290,8 @@ namespace Lab1
             for (int i = 0; i < this.Size; i++)
             {
                 //Нужно перебрать половину матрицы, для транспонирования
-                for (int j = i; j < this.Size; j++)
+                for (int j = 0; j < this.Size; j++)
                 {
-                    /*int tmp = resMatrix[i, j];
-                    resMatrix[i, j] = resMatrix[j, i];
-                    resMatrix[j, i] = tmp;*/
                     resMatrix[i, j] = this[j, i];
                 }
             }
@@ -324,7 +330,7 @@ namespace Lab1
         {
             string msg;
 
-            if (matrixB.evenNumbers > matrixA.evenNumbers + matrixC.oddNumbers)
+            if (matrixB.EvenNumbers > matrixA.EvenNumbers + matrixC.OddNumbers)
             {
                 Matrix resMatrix;
 
