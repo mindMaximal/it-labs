@@ -85,38 +85,57 @@ namespace Lab2
                     break;
             }
         }
+
     }
+
+
+
 
     public class Plenty {
 
         private int[] plenty;
         private int n;
 
+        // Чтобы заполнить матрицу случайными числами
         static Random rand = new Random();
 
+        // Несколько конструкторов
         public Plenty(int n_)
         {
-            this.n = n_;
-            this.plenty = new int[n];
+            var plenty_ = new int[n];
 
-            for (int i = 0; i < plenty.Length; i++)
+            for (int i = 0; i < n; i++)
             {
-                plenty[i] = rand.Next() % 100;
+                var tmp = rand.Next() % 100;
+
+                if (plenty.Any(num => num == tmp))
+                {
+                   i--;
+                }
+                else
+                {
+                    plenty[i] = tmp;
+                }
+                
             }
+
+            this.plenty = NormalizeSet(plenty_);
+            this.n = plenty.Length;
         }
 
         public Plenty(int[] plenty_)
         {
-            this.n = plenty_.Length;
-            this.plenty = plenty_;
+            this.plenty = NormalizeSet(plenty_);
+            this.n = plenty.Length;
         }
 
         public Plenty(string text)
         {
-            this.plenty = TextToMatrix(text);
+            this.plenty = NormalizeSet(TextToMatrix(text));
             this.n = plenty.Length;
         }
 
+        // Получить размер вектора
         public int Size
         {
             get 
@@ -125,6 +144,7 @@ namespace Lab2
             }
         }
 
+        // Посмотреть какой вектор лежит внутри объекта
         public int[] Array
         {
             get
@@ -133,6 +153,7 @@ namespace Lab2
             }
         }
 
+        // Индексатор
         public int this[int i]
         {
             get
@@ -143,6 +164,24 @@ namespace Lab2
             {
                 plenty[i] = value;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            // Преобразовываем переданный объект в множетсво
+            var B = obj as Plenty;
+
+            if (B == null)
+                return false; // Если не множество, то значит точно не совпадает
+
+            for (var i = 0; i < this.Size; ++i)
+            {
+                //  ищем первый несовпавший элемент
+                if (this[i] != B[i])
+                    return false; // если найдем, значит не совпадают
+
+            }
+            return true; // Иначе все совпало
         }
 
         public static Plenty operator +(Plenty plentyFirst, Plenty plentySecond)
@@ -281,6 +320,11 @@ namespace Lab2
             }
 
             return matrix;
+        }
+
+        private int[] NormalizeSet(int[] setSrc)
+        {
+            return setSrc.Distinct().ToArray();
         }
 
         public string MatrixToString()

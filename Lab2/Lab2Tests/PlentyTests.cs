@@ -21,9 +21,11 @@ namespace Lab2.Tests
 
             var tmp = first + second;
             
-            int[] res = {0, 1, 2, 3, 4, 5};
+            int[] resArray = {0, 1, 2, 3, 4, 5};
 
-            CollectionAssert.AreEqual(tmp.Array, res);
+            Plenty res = new Plenty(resArray);
+
+            Assert.AreEqual(tmp, res);
         }
 
         [TestMethod()]
@@ -36,9 +38,11 @@ namespace Lab2.Tests
 
             var tmp = first * second;
 
-            int[] res = { 1, 2 };
+            int[] resArray = { 1, 2 };
 
-            CollectionAssert.AreEqual(tmp.Array, res);
+            Plenty res = new Plenty(resArray);
+
+            Assert.AreEqual(tmp, res);
         }
 
         [TestMethod()]
@@ -51,9 +55,11 @@ namespace Lab2.Tests
 
             var tmp = first - second;
 
-            int[] res = { 0, 3, 4, 5};
+            int[] resArray = { 0, 3, 4, 5};
 
-            CollectionAssert.AreEqual(tmp.Array, res);
+            Plenty res = new Plenty(resArray);
+
+            Assert.AreEqual(tmp, res);
         }
 
         [TestMethod()]
@@ -65,9 +71,11 @@ namespace Lab2.Tests
 
             var tmp = first + num;
 
-            int[] res = { 0, 1, 2, 3, 5 };
+            int[] resArray = { 0, 1, 2, 3, 5 };
 
-            CollectionAssert.AreEqual(tmp.Array, res);
+            Plenty res = new Plenty(resArray);
+
+            Assert.AreEqual(tmp, res);
         }
 
         [TestMethod()]
@@ -79,9 +87,25 @@ namespace Lab2.Tests
 
             var tmp = first - num;
 
-            int[] res = { 0, 1, 2 };
+            int[] resArray = { 0, 1, 2 };
 
-            CollectionAssert.AreEqual(tmp.Array, res);
+            Plenty res = new Plenty(resArray);
+
+            Assert.AreEqual(tmp, res);
         }
+
+        [TestMethod()]
+        public void NormalizeSetTest()
+        {
+            int[] firstVector = { 0, 1, 1, 2, 3 };
+            Plenty first = new Plenty(firstVector);
+
+            int[] secondVector = { 0, 1, 2, 3 };
+            Plenty res = new Plenty(secondVector);
+
+            Assert.AreEqual(first, res);
+
+        }
+
     }
 }
