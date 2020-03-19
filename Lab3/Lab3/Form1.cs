@@ -28,7 +28,7 @@ namespace Lab3
             var rnd = new Random();
             for (var i = 0; i < 10; ++i)
             {
-                // Получаем случайное число из 0, 1, 3 
+                // Получаем случайное число из 0, 1, 2 
                 switch (rnd.Next() % 3)
                 {
                     // Создаем соотвественный объект в зависимости от результата
@@ -45,6 +45,28 @@ namespace Lab3
             }
 
             // Обновим информацию
+            ShowInfo();
+        }
+
+        private void btnGet_Click(object sender, EventArgs e)
+        {
+            // Проверим, вдруг животные кончились
+            if (this.animalsList.Count == 0)
+            {
+                txtOut.Text = "Пусто";
+                return;
+            }
+
+            // Получим первого из очереди
+            var animal = this.animalsList[0];
+
+            //Удалим первого из очереди
+            this.animalsList.RemoveAt(0);
+
+            // Получим информацию о этом животном
+            txtOut.Text = animal.GetInfo();
+
+            //Обновим информацию
             ShowInfo();
         }
 
@@ -84,28 +106,6 @@ namespace Lab3
             //Выведем информацию о количестве животных
             txtInfo.Text = "Коровы\tКоты\tСобаки\n";
             txtInfo.Text += String.Format("{0}\t{1}\t{2}", cowsCount, catsCount, dogsCount);
-        }
-
-        private void btnGet_Click(object sender, EventArgs e)
-        {
-            // Проверим, вдруг животные кончились
-            if (this.animalsList.Count == 0)
-            {
-                txtOut.Text = "Пусто";
-                return;
-            }
-
-            // Получим первого из очереди
-            var animal = this.animalsList[0];
-
-            //Удалим первого из очереди
-            this.animalsList.RemoveAt(0);
-
-            // Получим информацию о этом животном
-            txtOut.Text = animal.GetInfo();
-
-            //Обновим информацию
-            ShowInfo();
         }
     }
 }

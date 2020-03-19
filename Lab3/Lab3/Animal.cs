@@ -28,6 +28,7 @@ namespace Lab3
         public override string GetInfo()
         {
             var str = "Это корова";
+            str += base.GetInfo();
             str += string.Format("\nДлина рогов: {0} см", this.LengthHorns);
             str += string.Format("\nМолока в сутки: {0} л", this.VolumeMilk);
             return str;
@@ -94,7 +95,7 @@ namespace Lab3
         {
             var str = "Это кот";
             str += base.GetInfo();
-            str += string.Format("\nШерсть: {0}", this.IsWool);
+            str += string.Format("\nШерсть: {0}", this.IsWool ? "Присутствует" : "Отсутсвует");
             str += string.Format("\nМышей в день: {0}", this.CountMouse);
             return str;
         }
