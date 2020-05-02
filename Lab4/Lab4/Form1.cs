@@ -24,12 +24,15 @@ namespace Lab4
 
             //Размещаем произвольным образом 10 эмитеров
             var rnd = new Random();
-            for (var i = 0; i < 10; ++i)
+            for (var i = 0; i < 200; ++i)
             {
                 emiters.Add(new DirectionColorfulEmiter
                 {
-                    ParticlesCount = 50,
-                    Position = new Point(rnd.Next(picDisplay.Width), rnd.Next(picDisplay.Height))
+                    ParticlesCount = 20,
+                    Position = new Point(rnd.Next(picDisplay.Width), -20),
+                    Spread = 10,
+                    Direction = -88 + rnd.Next(10)
+                    //Position = new Point(rnd.Next(picDisplay.Width), rnd.Next(picDisplay.Height))
                 });
             }
         }

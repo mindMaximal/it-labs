@@ -71,10 +71,10 @@ namespace Lab4
         {
             return new ParticleColorful
             {
-                Direction = rand.Next(360),
-                Speed = 1 + rand.Next(10),
-                Radius = 2 + rand.Next(10),
-                Life = 20 + rand.Next(100),
+                Direction = -88 + rand.Next(10),
+                Speed = 15 + rand.Next(5),
+                Radius = 2 + rand.Next(1),
+                Life = 20 + rand.Next(10),
             };
         }
 
@@ -185,7 +185,7 @@ namespace Lab4
 
             for (var i = 0; i < 10; ++i)
             {
-                if (particles.Count < 500)
+                if (particles.Count < 200)
                 {
                     particles.Add(CreateParticle());
                 }
@@ -241,8 +241,8 @@ namespace Lab4
     {
         public int Direction = 0; //Направление
         public int Spread = 10; //Разброс
-        public Color FromColor = Color.Yellow; //Исходный цвет
-        public Color ToColor = Color.Magenta; //Конечный цвет
+        public Color FromColor = Color.Blue; //Исходный цвет
+        public Color ToColor = Color.Cyan; //Конечный цвет
 
         public override Particle CreateParticle()
         {
@@ -261,8 +261,8 @@ namespace Lab4
             var particleColorful = particle as ParticleColorful;
             if (particleColorful != null)
             {
-                particleColorful.Life = 20 + Particle.rand.Next(100);
-                particleColorful.Speed = 1 + Particle.rand.Next(10);
+                particleColorful.Life = 20 + Particle.rand.Next(10);
+                particleColorful.Speed = 20 + Particle.rand.Next(20);
 
                 particleColorful.FromColor = this.FromColor;
                 particleColorful.ToColor = Color.FromArgb(0, this.ToColor);
