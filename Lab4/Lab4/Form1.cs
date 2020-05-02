@@ -12,6 +12,7 @@ namespace Lab4
 {
     public partial class Form1 : Form
     {
+        //Список эмитеров
         List<DirectionColorfulEmiter> emiters = new List<DirectionColorfulEmiter>();
 
         public Form1()
@@ -21,7 +22,7 @@ namespace Lab4
             //Привязка изображения
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
-            // размещаем произвольным образом 10 эмитеров
+            //Размещаем произвольным образом 10 эмитеров
             var rnd = new Random();
             for (var i = 0; i < 10; ++i)
             {
@@ -33,6 +34,7 @@ namespace Lab4
             }
         }
 
+        //Функция обновления стейта
         private void UpdateState()
         {
             foreach (var emiter in emiters)
@@ -41,7 +43,7 @@ namespace Lab4
             }
         }
 
-        // функция рендеринга
+        //Функция рендеринга
         private void Render(Graphics g)
         {
             foreach (var emiter in emiters)
@@ -50,20 +52,21 @@ namespace Lab4
             }
         }
 
-        // ну и обработка тика таймера, тут просто декомпозицию выполнили
+        //Функция обработки тика таймера
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateState();
 
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
-                g.Clear(Color.Black); // А ЕЩЕ ЧЕРНЫЙ ФОН СДЕЛАЮ
+                g.Clear(Color.Black);
                 Render(g);
             }
 
             picDisplay.Invalidate();
         }
 
+        //Функции обработки скролл-баров
         private void tdDirection_Scroll(object sender, EventArgs e)
         {
             foreach (var emiter in emiters)
@@ -79,7 +82,7 @@ namespace Lab4
                 emiter.Spread = tbSpread.Value;
             }
         }
-
+        //И функции обработки кнопок, для установки цвета
         private void btnFromColor_Click(object sender, EventArgs e)
         {
             var dialog = new ColorDialog();

@@ -17,10 +17,11 @@ namespace Lab4
         public float Direction; //Направление
         public float Speed; //Cкорость
 
-        public float Life; // запас здоровья частицы
+        public float Life; //Здоровье частицы
 
         public static Random rand = new Random();
 
+        //При создании заполняем случайными значенями
         public static Particle Generate()
         {
             return new Particle
@@ -28,36 +29,33 @@ namespace Lab4
                 Direction = rand.Next(360),
                 Speed = 1 + rand.Next(10),
                 Radius = 2 + rand.Next(10),
-                Life = 20 + rand.Next(100), // Добавили в генератор, исходный запас здоровья от 20 до 120
+                Life = 20 + rand.Next(100),
             };
         }
 
         public virtual void Draw(Graphics g)
         {
-            // рассчитываем коэффициент прозрачности по шкале от 0 до 1.0
+            //Рассчитываем коэффициент прозрачности по шкале от 0 до 1.0
             float k = Math.Min(1f, Life / 100);
-            // рассчитываем значение альфа канала в шкале от 0 до 255
-            // по аналогии с RGB, он используется для задания прозрачности
+            //Рассчитываем значение альфа канала в шкале от 0 до 255
             int alpha = (int)(k * 255);
 
-            // создаем цвет из уже существующего, но привязываем к нему еще и значение альфа канала
+            //Создаем цвет из уже существующего и привязываем значение альфа канала
             var color = Color.FromArgb(alpha, Color.Black);
             var b = new SolidBrush(color);
 
-            // остальное все так же
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
-
             b.Dispose();
         }
     }
 
     public class ParticleColorful : Particle
     {
-        // два новых поля под цвет начальный и конечный
+        //Цвет начальный и конечный
         public Color FromColor;
         public Color ToColor;
 
-        // для смеси цветов
+        //Смешивание цветов
         public static Color MixColor(Color color1, Color color2, float k)
         {
             return Color.FromArgb(
@@ -68,7 +66,7 @@ namespace Lab4
             );
         }
 
-        // подменяем метод генерации на новый, который будет возвращать ParticleColorful
+        //Новйы метод генерации цветных частиц
         public new static ParticleColorful Generate()
         {
             return new ParticleColorful
@@ -80,12 +78,11 @@ namespace Lab4
             };
         }
 
-        // ну и отрисовку перепишем
+        //Отрисовка
         public override void Draw(Graphics g)
         {
             float k = Math.Min(1f, Life / 100);
 
-            // так как k уменшается от 1 до 0, то порядок цветов обратный
             var color = MixColor(ToColor, FromColor, k);
             var b = new SolidBrush(color);
 
@@ -97,6 +94,7 @@ namespace Lab4
 
     public class ParticleImage : Particle
     {
+        //Цвет начальный и конечный + изображение частицы
         public Image image;
         public Color FromColor;
         public Color ToColor;
@@ -118,8 +116,7 @@ namespace Lab4
 
             var color = ParticleColorful.MixColor(ToColor, FromColor, k);
 
-            // матрица преобразования цвета
-            // типа аналога матрицы трансформации, но для цвета
+            //Матрица преобразования цвета
             ColorMatrix matrix = new ColorMatrix(new float[][]{
             new float[] {0, 0, 0, 0, 0}, // умножаем текущий красный цвет на 0
             new float[] {0, 0, 0, 0, 0}, // умножаем текущий зеленый цвет на 0
@@ -127,18 +124,17 @@ namespace Lab4
             new float[] {0, 0, 0, k, 0}, // тут подставляем k который прозрачность задает
             new float[] {(float)color.R / 255, (float)color.G / 255, (float)color.B/255, 0, 1F}});
 
-            // эту матрицу пихают в атрибуты
+            //Устанавливает матрицу в качестве атрибута
             ImageAttributes imageAttributes = new ImageAttributes();
             imageAttributes.SetColorMatrix(matrix);
 
-            // ну и тут хитрый метод рисования
             g.DrawImage(image,
-                // куда рисовать
+                //Место отрисовки
                 new Rectangle((int)(X - Radius), (int)(Y - Radius), Radius * 2, Radius * 2),
-                // и какую часть исходного изображения брать, в нашем случае все изображения
+                //Часть исходного изображения брать
                 0, 0, image.Width, image.Height,
-                GraphicsUnit.Pixel, // надо передать
-                imageAttributes // наши атрибуты с матрицей преобразования
+                GraphicsUnit.Pixel,
+                imageAttributes //Атрибуты с матрицей преобразования
                );
         }
     }
@@ -147,9 +143,8 @@ namespace Lab4
     {
         List<Particle> particles = new List<Particle>();
     
-        // количество частиц эмитера храним в переменной
+        //Количество частиц эмитера
         int particleCount = 0;
-        // и отдельной свойство которое возвращает количество частиц
 
         public int ParticlesCount
         {
@@ -159,9 +154,8 @@ namespace Lab4
             }
             set
             {
-                // при изменении этого значения
                 particleCount = value;
-                // удаляем лишние частицы если вдруг
+                //Удаляем лишние частицы
                 if (value < particles.Count)
                 {
                     particles.RemoveRange(value, particles.Count - value);
@@ -169,13 +163,11 @@ namespace Lab4
             }
         }
 
-        // три абстрактных метода мы их переопределим позже
+        //Абстрактные методы
         public abstract void ResetParticle(Particle particle);
         public abstract void UpdateParticle(Particle particle);
         public abstract Particle CreateParticle();
 
-        // тут общая логика обновления состояния эмитера
-        // по сути копипаста
         public void UpdateState()
         {
             foreach (var particle in particles)
@@ -247,10 +239,10 @@ namespace Lab4
 
     public class DirectionColorfulEmiter : PointEmiter
     {
-        public int Direction = 0; // направление частиц
-        public int Spread = 10; // разброс частиц
-        public Color FromColor = Color.Yellow; // исходный цвет
-        public Color ToColor = Color.Magenta; // конечный цвет
+        public int Direction = 0; //Направление
+        public int Spread = 10; //Разброс
+        public Color FromColor = Color.Yellow; //Исходный цвет
+        public Color ToColor = Color.Magenta; //Конечный цвет
 
         public override Particle CreateParticle()
         {
