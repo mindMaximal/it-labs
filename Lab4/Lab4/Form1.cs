@@ -113,5 +113,29 @@ namespace Lab4
                 btnToColor.BackColor = dialog.Color;
             }
         }
+
+        private void tbSpeed_Scroll(object sender, EventArgs e)
+        {
+            foreach (var emiter in emiters)
+            {
+                emiter.Speed = tbSpeed.Value;
+            }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            foreach (var emiter in emiters)
+            {
+                emiter.Life = tbLife.Value;
+            }
+        }
+
+        private void tbRadius_Scroll(object sender, EventArgs e)
+        {
+            foreach (var emiter in emiters)
+            {
+                emiter.Radius = tbRadius.Value;
+            }
+        }
     }
 }

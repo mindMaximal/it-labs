@@ -37,9 +37,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnFromColor = new System.Windows.Forms.Button();
             this.btnToColor = new System.Windows.Forms.Button();
+            this.tbSpeed = new System.Windows.Forms.TrackBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbLife = new System.Windows.Forms.TrackBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbRadius = new System.Windows.Forms.TrackBar();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSpread)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbLife)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRadius)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -59,11 +68,13 @@
             // tbDirection
             // 
             this.tbDirection.Location = new System.Drawing.Point(12, 12);
-            this.tbDirection.Maximum = 359;
+            this.tbDirection.Maximum = 90;
+            this.tbDirection.Minimum = -90;
             this.tbDirection.Name = "tbDirection";
             this.tbDirection.Size = new System.Drawing.Size(104, 37);
             this.tbDirection.TabIndex = 1;
             this.tbDirection.TickFrequency = 30;
+            this.tbDirection.Value = -90;
             this.tbDirection.Scroll += new System.EventHandler(this.tdDirection_Scroll);
             // 
             // tbSpread
@@ -114,11 +125,72 @@
             this.btnToColor.UseVisualStyleBackColor = true;
             this.btnToColor.Click += new System.EventHandler(this.btnToColor_Click);
             // 
+            // tbSpeed
+            // 
+            this.tbSpeed.Location = new System.Drawing.Point(314, 12);
+            this.tbSpeed.Maximum = 100;
+            this.tbSpeed.Name = "tbSpeed";
+            this.tbSpeed.Size = new System.Drawing.Size(104, 37);
+            this.tbSpeed.TabIndex = 7;
+            this.tbSpeed.TickFrequency = 20;
+            this.tbSpeed.Scroll += new System.EventHandler(this.tbSpeed_Scroll);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(314, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Скорость";
+            // 
+            // tbLife
+            // 
+            this.tbLife.Location = new System.Drawing.Point(424, 12);
+            this.tbLife.Maximum = 100;
+            this.tbLife.Name = "tbLife";
+            this.tbLife.Size = new System.Drawing.Size(104, 37);
+            this.tbLife.TabIndex = 9;
+            this.tbLife.TickFrequency = 10;
+            this.tbLife.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(421, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Интенсивность";
+            // 
+            // tbRadius
+            // 
+            this.tbRadius.Location = new System.Drawing.Point(534, 12);
+            this.tbRadius.Name = "tbRadius";
+            this.tbRadius.Size = new System.Drawing.Size(104, 37);
+            this.tbRadius.TabIndex = 11;
+            this.tbRadius.Scroll += new System.EventHandler(this.tbRadius_Scroll);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(531, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(189, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Размер капель (превращаем в пар)";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbRadius);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.tbLife);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tbSpeed);
             this.Controls.Add(this.btnToColor);
             this.Controls.Add(this.btnFromColor);
             this.Controls.Add(this.label2);
@@ -131,6 +203,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSpread)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbLife)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRadius)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,6 +221,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnFromColor;
         private System.Windows.Forms.Button btnToColor;
+        private System.Windows.Forms.TrackBar tbSpeed;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TrackBar tbLife;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar tbRadius;
+        private System.Windows.Forms.Label label5;
     }
 }
 

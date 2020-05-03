@@ -224,7 +224,7 @@ namespace Lab4
             particle.Life = 20 + Particle.rand.Next(100);
             particle.Speed = 1 + Particle.rand.Next(10);
             particle.Direction = Particle.rand.Next(360);
-            particle.Radius = 2 + Particle.rand.Next(10);
+            particle.Radius = 2 + Particle.rand.Next(2);
             particle.X = Position.X;
             particle.Y = Position.Y;
         }
@@ -241,6 +241,9 @@ namespace Lab4
     {
         public int Direction = 0; //Направление
         public int Spread = 10; //Разброс
+        public int Speed = 1;
+        public int Life = 20;
+        public int Radius = 2;
         public Color FromColor = Color.Blue; //Исходный цвет
         public Color ToColor = Color.Cyan; //Конечный цвет
 
@@ -250,6 +253,9 @@ namespace Lab4
             particle.FromColor = this.FromColor;
             particle.ToColor = Color.FromArgb(0, this.ToColor);
             particle.Direction = this.Direction + Particle.rand.Next(-Spread / 2, Spread / 2);
+            particle.Speed = this.Speed + Particle.rand.Next(20);
+            particle.Life = this.Life + Particle.rand.Next(10);
+            particle.Radius = this.Radius + Particle.rand.Next(2);
 
             particle.X = Position.X;
             particle.Y = Position.Y;
@@ -261,8 +267,9 @@ namespace Lab4
             var particleColorful = particle as ParticleColorful;
             if (particleColorful != null)
             {
-                particleColorful.Life = 20 + Particle.rand.Next(10);
-                particleColorful.Speed = 20 + Particle.rand.Next(20);
+                particleColorful.Life = this.Life + Particle.rand.Next(10);
+                particleColorful.Speed = this.Speed + Particle.rand.Next(20);
+                particleColorful.Radius = this.Radius + Particle.rand.Next(2);
 
                 particleColorful.FromColor = this.FromColor;
                 particleColorful.ToColor = Color.FromArgb(0, this.ToColor);
