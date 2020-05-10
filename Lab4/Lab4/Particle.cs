@@ -239,8 +239,8 @@ namespace Lab4
 
     public class DirectionColorfulEmiter : PointEmiter
     {
-        public int Direction = 0; //Направление
-        public int Spread = 10; //Разброс
+        public int Direction = -85; //Направление
+        public int Spread = 20; //Разброс
         public int Speed = 1;
         public int Life = 20;
         public int Radius = 2;
